@@ -2,7 +2,7 @@
 var VALIDATE = VALIDATE || {};
 
 /*
-* VALIDATE.check({type:'E-MAIL'}, 'name@gmail.com', function(res){}); 
+* VALIDATE.check({type:'E-MAIL'}, 'name@gmail.com', function(res){});
 *
 */
 VALIDATE.check = (function() {
@@ -15,7 +15,7 @@ VALIDATE.check = (function() {
     _checkType = {
       'E-MAIL':'E-MAIL'
     };
-  };
+  }();
 
   _check = function(options, checkVale, checkCallback) {
     switch (options.type) {
@@ -33,10 +33,18 @@ VALIDATE.check = (function() {
     var _isEmailAddr = false,
         _re          = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     _isEmailAddr = _re.test(value);
-    callback(_isEmailAddr);
+    callback({
+      type:'E-MAIL',
+      isEmail:_isEmailAddr
+    });
   };
   // 初始化
-  _init();
 
   return _check;
 })();
+
+VALIDATE.check({type:'E-MAIL'}, 'name@gmail.com', function(res){
+  console.log(res);
+});
+
+module.exports = VALIDATE;
